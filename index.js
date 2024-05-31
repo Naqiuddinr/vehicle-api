@@ -10,6 +10,7 @@ app.get('/vehicles', vehicleController.getVehicles);
 app.post('/vehicles', vehicleController.addNewVehicle);
 app.get('/vehicles/:vehicle_id', vehicleController.getVehicleById);
 app.delete('/vehicles/:vehicle_id', vehicleController.deleteVehicleById);
+app.put('/vehicles/:vehicle_id', vehicleController.updateVehicleById);
 
 
 app.listen(PORT, () => {

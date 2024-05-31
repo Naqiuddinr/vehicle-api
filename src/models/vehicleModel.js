@@ -71,4 +71,46 @@ const deleteVehicleById = async (vehicle_id) => {
     }
 }
 
-module.exports = { getVehicles, addNewVehicle, getVehicleById, deleteVehicleById }
+const updateVehicleById = async (vehicle_id, newVehicleData) => {
+    const client = await pool.connect();
+
+    try {
+
+        const response = await client.query(`
+        UPDATE Vehicles
+        SET 
+            type = COALESCE($1, type),
+            lock_status = COALESCE($2, lock_status),
+            current_speed = COALESCE($3, current_speed),
+            battery_level = COALESCE($4, battery_level),
+            status = COALESCE($5, status),
+            latitude = COALESCE($6, latitude),
+            longitude = COALESCE($7, longitude),
+            last_updated = COALESCE($8, last_updated)
+        WHERE vehicle_id = $9
+        RETURNING *;`,
+            [
+                newVehicleData.type,
+                newVehicleData.lock_status,
+                newVehicleData.current_speed,
+                newVehicleData.battery_level,
+                newVehicleData.status,
+                newVehicleData.latitude,
+                newVehicleData.longitude,
+                newVehicleData.last_updated,
+                vehicle_id
+            ]);
+
+        return response.rows[0];
+
+    }
+    catch (err) {
+        console.error(err.message);
+        throw err;
+    }
+    finally {
+        client.release();
+    }
+}
+
+module.exports = { getVehicles, addNewVehicle, getVehicleById, deleteVehicleById, updateVehicleById }

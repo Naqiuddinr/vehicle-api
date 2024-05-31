@@ -6,6 +6,7 @@ const PORT = 3000;
 
 app.use(express.json());
 
+//API ENDPOINT routes
 app.get('/vehicles', vehicleController.getVehicles);
 app.post('/vehicles', vehicleController.addNewVehicle);
 app.get('/vehicles/:vehicle_id', vehicleController.getVehicleById);

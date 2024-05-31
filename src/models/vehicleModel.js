@@ -23,9 +23,10 @@ const addNewVehicle = async ({ type, latitude, longitude }) => {
     const client = await pool.connect(); //connect to postgres DB
 
     try {
+        //query database to INSERT data into vehicles table
         const response = await client.query(`INSERT INTO vehicles (type, lock_status, current_speed, battery_level, status, latitude, longitude, last_updated) 
                                         VALUES ($1, 'Lock', '0', '0', 'PARKING', $2, $3, NOW()) 
-                                        RETURNING *`, [type, latitude, longitude]); //query database to INSERT data into vehicles table
+                                        RETURNING *`, [type, latitude, longitude]);
         return response.rows[0]; //pass response to controller
     }
     catch (err) {
@@ -81,7 +82,7 @@ const updateVehicleById = async (vehicle_id, newVehicleData) => {
 
     try {
         //query database to UPDATE from vehicles table by vehicle ID
-        //COALESCE - to handle any null value, use existing data instead(not nessecary)
+        //COALESCE - to handle any null value, use existing data instead(not necessary, depends on cases)
         const response = await client.query(`
         UPDATE Vehicles
         SET 

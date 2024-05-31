@@ -43,7 +43,7 @@ const getVehicleById = async (req, res) => {
         const response = await vehicleModel.getVehicleById(vehicle_id);
 
         if (!response) {
-            res.status(404).json({ message: 'Invalid Vehicle ID' }); //if vehicle_id not found, response returning null
+            res.status(404).json({ message: 'Invalid Vehicle ID' }); //if vehicle_id not found = response returning null
         }
 
         res.status(200).json(response);
@@ -65,7 +65,7 @@ const deleteVehicleById = async (req, res) => {
         const response = await vehicleModel.deleteVehicleById(vehicle_id);
 
         if (!response) {
-            res.status(404).json({ message: 'Invalid Vehicle ID' }); //if vehicle_id not found, response returning null
+            res.status(404).json({ message: 'Invalid Vehicle ID' }); //if vehicle_id not found = response returning null
         }
 
         res.status(200).json({ message: `Vehicle ID ${vehicle_id} deleted successfully` });
@@ -87,7 +87,7 @@ const updateVehicleById = async (req, res) => {
         const response = await vehicleModel.updateVehicleById(vehicle_id, newVehicleData);
 
         if (!response) {
-            res.status(404).json({ message: 'Invalid Vehicle ID' }); //if vehicle_id not found, response returning null
+            res.status(404).json({ message: 'Invalid Vehicle ID' }); //if vehicle_id not found = response returning null
         }
 
         res.status(200).json({ message: `Vehicle ID ${vehicle_id} updated successfully`, data: response });
